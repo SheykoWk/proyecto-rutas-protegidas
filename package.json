@@ -1,7 +1,7 @@
 {
   "name": "proyecto5",
   "version": "1.0.0",
-  "description": "",
+  "description": "Descripcion para hacer un pull request",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
