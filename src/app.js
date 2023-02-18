@@ -1,13 +1,15 @@
 //? Dependencies
 const express = require('express')
+const swaggerUi=require('swagger-ui-express')
 
 //? File imports
 const config = require('../config')
 const { error, success } =require('./utils/responses.handler')
 const db = require('./utils/database')
+const swaggerDoc=require('./swagger.json')
 //? Router Imports
 const userRouter = require('./users/users.router')
-
+const authRouter=require('./auth/auth.router')
 //? Initial Configs
 const app = express()
 app.use(express.json())
@@ -35,6 +37,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 //? 404 Error Handler
 app.use('*', (req, res) => {
