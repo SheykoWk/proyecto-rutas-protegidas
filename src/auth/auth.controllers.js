@@ -7,7 +7,10 @@ const checkUsersCredentials = async (email, password) => {
         const user = await findUserByEmail(email)
         const veryfiedPassword = comparePassword(password, user.password)
 
-        return veryfiedPassword
+        if (veryfiedPassword)
+            return user
+        else
+            return false
     } catch (error){
         return false
     }

@@ -50,6 +50,28 @@ const getUserById = (req ,res) => {
         })
 }
 
+const getMyUser = (req, res) => {
+    const id = req.user.id
+
+    usersControllers.findUserById(id)
+        .then(data => {
+            responses.success({
+                res,
+                status: 200,
+                message: 'This is you user',
+                data
+            })
+        })
+        .catch(err => {
+            responses.error({
+                res,
+                status: 400,
+                message: 'Something went wrong getting user',
+                data: err
+            })
+        })
+}
+
 const postNewUser = (req, res) => {
     const userObj = req.body
     usersControllers.createNewUser(userObj)
@@ -126,6 +148,45 @@ const patchUser = (req, res) => {
         })
 }
 
+const patchMyUser = (req, res) => {
+    
+    const id = req.user.id
+    const { firstName, lastName, email, password, profileImage, phone } = req.body
+
+    const userObj = {
+        firstName,
+        lastName,
+        email,
+        password, 
+        profileImage,
+        phone
+    }
+
+    usersControllers.updateUser(id, userObj)
+        .then(data => {
+            if (data)
+                responses.success({
+                    res,
+                    status: 200,
+                    message: `Your user was updated successfully`,
+                })
+            else
+                responses.error({
+                    res,
+                    status: '404',
+                    message: `User with id ${id}, not found`
+                })
+        })
+        .catch(err => {
+            responses.error({
+                res,
+                status: 400,
+                message: 'Semthing went wrong updating user',
+                data: err
+            })
+        })
+}
+
 const deleteUser = (req, res) => {
     const id = req.params.id 
 
@@ -157,10 +218,41 @@ const deleteUser = (req, res) => {
         })
 }
 
+const deteleMyUser = (req, res) => {
+    const id = req.user.id
+
+    usersControllers.deleteUser(id)
+        .then(data => {
+            if (data)
+                responses.success({
+                    res,
+                    status: 200,
+                    message: 'Your user was deleted successfully',
+                })
+            else
+                responses.error({
+                    res,
+                    status: '404',
+                    message: `User with id ${id}, not found`
+                })
+        })
+        .catch(err => {
+            responses.error({
+                res,
+                status: 400,
+                message: 'Something went wrong deleting user',
+                data: err
+            })
+        })
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
+    getMyUser,
     postNewUser,
     patchUser,
-    deleteUser
+    patchMyUser,
+    deleteUser,
+    deteleMyUser
 }

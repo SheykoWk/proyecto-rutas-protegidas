@@ -32,7 +32,7 @@ const postLogin = (req, res) => {
         .catch(err => {
             Responses.error({
                 res,
-                status: 400,
+                status: 401,
                 data: err,
                 message: 'Something went wrong in authentication'
             })

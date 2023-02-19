@@ -13,7 +13,8 @@ const findUserById = async (id) => {
         where: {
             id: id
         }
-    })
+    }) 
+    
     return data
 }
 
