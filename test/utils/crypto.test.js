@@ -19,19 +19,19 @@ describe('Testing de la utilidad hashPassword', () => {
 })
 
 describe('Testing de la utilidad comparePassword', () => {
-    it('Deberia retornar false en caso de que no pasemos nada', (done) => {
+    it('Deberia retornar false en caso de que las credenciales sean incorrectas', (done) => {
         const response = comparePassword('1234', '$2b$10$Fpxk3hzdPmxCpO/Pe0eONu9kQ.yPOYDdCNXEH.DWckyjG4qvZCHi6')
         assert.equal(response, false)
         done()
     }) 
-    it('Deberia retornar false en caso de que las credenciales sean incorrectas', (done) => {
-        const response = comparePassword()
+    it('Deberia retornar false en caso de que no pasemos nada', (done) => {
+        const response = comparePassword(null, null)
         assert.equal(response, false)
         done()
     })  
-    it('Deberia retornar false en caso de que las credenciales sean correctas', (done) => {
+    it('Deberia retornar true en caso de que las credenciales sean correctas', (done) => {
         const response = comparePassword('root', '$2b$10$Fpxk3hzdPmxCpO/Pe0eONu9kQ.yPOYDdCNXEH.DWckyjG4qvZCHi6')
-        assert.equal(response, false)
+        assert.equal(response, true)
         done()
     })   
 })
