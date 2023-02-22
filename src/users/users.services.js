@@ -34,8 +34,37 @@ const getUserById = (req ,res) => {
                 })
             } else {
                 responses.error({
-                    status: 404,
+                    status: 401,
                     message: `User with ID: ${id}, not found`,
+                    res
+                })
+            }
+        })
+        .catch(err => {
+            responses.error({
+                status: 400,
+                data: err,
+                message: 'Something bad getting the user',
+                res
+            })
+        })
+}
+
+const getUserByEmail = (req ,res) => {
+    const email = req.params.email 
+    usersControllers.findUserByEmail(email)
+        .then(data => {
+            if(data){
+                responses.success({
+                    status: 200,
+                    data,
+                    message: `Getting User with id: ${email}`,
+                    res
+                })
+            } else {
+                responses.error({
+                    status: 401,
+                    message: `User with ID: ${email}, not found`,
                     res
                 })
             }
@@ -94,7 +123,7 @@ const patchUser = (req, res) => {
                 })
             } else {
                 responses.error({
-                    status: 404,
+                    status: 401,
                     message: `The user with ID ${id} not found`,
                     res,
                     fields: {
@@ -140,7 +169,7 @@ const deleteUser = (req, res) => {
                 })
             } else {
                 responses.error({
-                    status: 404,
+                    status: 401,
                     data: err,
                     message: `The user with ID ${id} not found`,
                     res
@@ -160,6 +189,7 @@ const deleteUser = (req, res) => {
 module.exports = {
     getAllUsers,
     getUserById,
+    getUserByEmail,
     postNewUser,
     patchUser,
     deleteUser
