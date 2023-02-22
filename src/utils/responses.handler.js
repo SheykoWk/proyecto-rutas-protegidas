@@ -7,13 +7,12 @@ const success = ({ status, data, message, res }) => {
   });
 };
 
-const error = ({ status, err, message, res, fields }) => {
+const error = ({ status, message, res, fields }) => {
   res.status(status).json({
     error: true,
     status: status,
     message: message,
     fields: fields,
-    data: err,
   });
 };
 
