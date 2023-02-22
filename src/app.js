@@ -5,8 +5,10 @@ const express = require('express')
 const config = require('../config')
 const { error, success } =require('./utils/responses.handler')
 const db = require('./utils/database')
+const initModels = require('./models/initModels')
 //? Router Imports
 const userRouter = require('./users/users.router')
+const authRouter = require('./auth/auth.router')
 
 //? Initial Configs
 const app = express()
@@ -22,6 +24,8 @@ db.sync()
     .then(() => console.log('Database Synced'))
     .catch(err => console.log(err))
 
+initModels()
+
 //? Routes
 app.get('/', (req, res) => {
     success({
@@ -35,6 +39,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/auth', authRouter  )
 
 //? 404 Error Handler
 app.use('*', (req, res) => {

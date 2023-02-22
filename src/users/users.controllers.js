@@ -2,6 +2,8 @@ const uuid = require('uuid')
 
 const Users = require('../models/users.models')
 
+const {hashPassword} = require('../utils/crypto')
+
 const findAllUser = async () => {
     const data = await Users.findAll()
     return data
@@ -31,7 +33,7 @@ const createNewUser = async (userObj) => {
         firstName : userObj.firstName,
         lastName : userObj.lastName,
         email: userObj.email,
-        password: userObj.password,
+        password: hashPassword(userObj.password),
         profileImage: userObj.profileImage,
         phone : userObj.phone
     }
@@ -40,7 +42,6 @@ const createNewUser = async (userObj) => {
 }
 
 const updateUser = async (id, userObj) => {
-    //data === 1
     const data = await Users.update(userObj,{
         where: {
             id: id
