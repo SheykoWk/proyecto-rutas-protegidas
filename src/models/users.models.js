@@ -15,8 +15,10 @@ const Users = db.define('users', {
                 msg: 'firstName: required file'
             },
             len: [1, 255]
-        }
+        },
+
     },
+    
     lastName: {
         type: DataTypes.STRING,
         allowNull: false,
