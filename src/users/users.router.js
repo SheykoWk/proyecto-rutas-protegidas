@@ -7,7 +7,7 @@ router.post("/", userServices.postNewUser);
 
 router.get("/:id", userServices.getUserById);
 
-// PROTECT ROUTES
+//? PROTECT ROUTES
 router.patch("/:id", passportJwt, userServices.patchUser);
 router.delete("/:id", passportJwt, userServices.deleteUser);
 
