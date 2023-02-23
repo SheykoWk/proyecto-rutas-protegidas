@@ -1,0 +1,49 @@
+{
+    "swagger":"2.0",
+    "info":{
+        "title":"Route Protected",
+        "description":"In this Api we protected a onwer user if he want to chage data or delete url: [http://localhost:9000/api/v1/docs](http://localhost:9000/api/v1/docs)",
+        "version":"0.0.1",
+        "contac":{
+            "email":"flaviovidalhua@gmail.com"
+        }
+    },
+    "host":"http://localhost:9000/",
+    "basePath":"api/v1/",
+    "tags":[
+        {
+            "name":"users",
+            "description":"find de user created",
+            "externalDocs":{
+                "description":"find more abuot how creat documentary in swagger",
+                "url":"http://swagger.io"
+            }
+        },
+        {
+            "name":"auth",
+            "description":"authenticared of user"
+        },
+        {
+            "name":"docs",
+            "description":"About all route and describe how accses and hath verb you need"
+        }
+    ],
+    "schemes":["http"],
+    "paths":{
+        "/users":{
+            "get":{
+                "tags":["users"],
+                "description":"Get All user",
+                "operationId":"get data in data base",
+                "responses":{
+                    "200":{
+                        "description":"Operation successfully"
+                    },
+                    "400":{
+                        "description":"Invalid action"
+                    }
+                  }
+                }
+            }
+        }
+} 
