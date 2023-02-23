@@ -11,9 +11,7 @@ before(() => {
     createUsers()
 })
 
-after(() => {
-    deleteUsers()
-})
+
 
 describe('Testing de la ruta /api/v1/auth/login', () => {
     it('Deberia generar un error 401 al no mandarle credenciales', (done) => {
@@ -36,7 +34,7 @@ describe('Testing de la ruta /api/v1/auth/login', () => {
             })
     })
 
-    it('Deberia generar un error 401 al mandarle credenciales incorrectas', (done) => {
+    it('Deberia generar un estatus 200 al mandar credenciales correctas', (done) => {
         chai.request(app)
             .post('/api/v1/auth/login')
             .set("content-type", "application/json")
