@@ -1,7 +1,7 @@
 {
   "name": "proyecto5",
   "version": "1.0.0",
-  "description": "",
+  "description": "modificación para contribuir",
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
