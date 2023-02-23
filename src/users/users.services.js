@@ -157,10 +157,77 @@ const deleteUser = (req, res) => {
         })
 }
 
+
+const getMyUser=(req, res)=>{
+    const id=req.user.id
+    usersControllers.findUserById(id)
+        .then(data=> {
+            responses.success({
+                res,
+                status:200,
+                message:'This are the data of user',
+                data
+            })
+        })
+        .catch(err=>{
+            responses.error({
+                res,
+                status:400,
+                message:'somethin wrong',
+                data:err.message
+            })
+        })
+}
+
+const deleteMyUser=(req, res)=>{
+    const id=req.user.id
+    usersControllers.deleteUser(id)
+        .then(data=>{
+            responses.success({
+                res,
+                status:200,
+                message:`user deleted successfully with ID: ${id}`
+            })
+        })
+        .catch(res=>{
+            responses.error({
+                res,
+                status:400,
+                message:err.message
+            })
+        })
+}
+
+const patchMyUser=(req, res)=>{
+    const id=req.user.id
+    const {firstName, lastName, email, password, profileImage, phone}=req.body
+    const userObj={firstName, lastName, email, password, profileImage, phone}
+    usersControllers.updateUser(id, userObj)
+        .then(()=>{
+            responses.success({
+                res,
+                status:200,
+                message:'your user has been update'  
+            })
+        })
+        .catch(err=>{
+            responses.error({
+                res,
+                status:400,
+                message:err.message,
+                data:err
+            })
+        })
+}
+
+
 module.exports = {
     getAllUsers,
     getUserById,
     postNewUser,
     patchUser,
-    deleteUser
+    deleteUser,
+    getMyUser,
+    deleteMyUser,
+    patchMyUser
 }
