@@ -1,5 +1,6 @@
 const Users = require('../../src/models/users.models')
 const { hashPassword } = require('../../src/utils/crypto')
+
 const userBases = [
     {
         id: 'de69c924-03f1-4b6e-93ad-8fe17ec1121d',
