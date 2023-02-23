@@ -1,4 +1,4 @@
-const messageControllers = require('./messages.controllers')
+const messageControllers = require('./messages.controller')
 const responses = require('../utils/handleResponses')
 
 const getAllMessagesByConversation = (req, res) => {
@@ -32,6 +32,20 @@ const getAllMessagesByConversation = (req, res) => {
         })
 }
 
+const validateUserOnConversation = (req, res) => {
+    const userId = req.user.id
+    const conversationId = req.params.conversationId
+
+    messageControllers.validateUserOnConversation(userId, conversationId)
+        .then(data => {
+            console.log(data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
 module.exports = {
-    getAllMessagesByConversation
+    getAllMessagesByConversation,
+    validateUserOnConversation
 }

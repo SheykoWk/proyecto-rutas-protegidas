@@ -1,4 +1,4 @@
-const conversationControllers = require('./conversations.controllers')
+const conversationControllers = require('./conversations.controller')
 const responses = require('../utils/handleResponses')
 
 const getAllConversationsByUser = (req, res) => {

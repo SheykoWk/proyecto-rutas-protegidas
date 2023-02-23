@@ -1,6 +1,6 @@
-const Conversations = require('../models/conversations.models')
-const Participants = require('../models/participants.models')
-const Users = require('../models/users.models')
+const Conversations = require('../models/conversations.model')
+const Participants = require('../models/participants.model')
+const Users = require('../models/users.model')
 
 const uuid = require('uuid')
 
@@ -10,7 +10,7 @@ const findAllConversationsByUser = async (userId) => {
         include: {
             model: Participants,
             where: {
-                userId: userId
+                userId
             }
         }
     })
@@ -42,7 +42,8 @@ const createConversation = async (conversationObj, userOwnerId, userGuestId) => 
         id: uuid.v4(),
         name: conversationObj.name,
         profileImage: conversationObj.profileImage,
-        isGroup: conversationObj.isGroup
+        isGroup: conversationObj.isGroup,
+        createdBy: conversationObj.createdBy
     })
 
     // Owner participant

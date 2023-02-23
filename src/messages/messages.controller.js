@@ -1,5 +1,5 @@
-const Messages = require('../models/messages.models')
-const Participants = require('../models/participants.models')
+const Messages = require('../models/messages.model')
+const Participants = require('../models/participants.model')
 
 const findAllMessagesByConversation = async (conversationId, userId) => {
     const data = await Messages.findAll({
@@ -25,5 +25,6 @@ const validateUserOnConversation = async( userId, conversationId ) => {
 }
 
 module.exports = {
-    findAllMessagesByConversation
+    findAllMessagesByConversation,
+    validateUserOnConversation
 }

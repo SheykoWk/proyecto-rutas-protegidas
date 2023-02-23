@@ -3,9 +3,9 @@ const router = require('express').Router()
 const conversationServices = require('./conversations.services')
 const messageServices = require('../messages/messages.services')
 
-const passportJwt = require('../middlewares/auth.middleware')
+const passportJwt = require('../middleware/auth.middleware')
 
-router.route('/')
+router.route('/conversations')
     .get(passportJwt, conversationServices.getAllConversationsByUser)
     .post(passportJwt, conversationServices.postNewConversation)
 

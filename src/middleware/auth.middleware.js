@@ -8,7 +8,7 @@ const passportConfigs = {
     secretOrKey: process.env.JWT_SECRET
 }
 
-passport.use(new Strategy(passportConfigs, (tokenDecoded, done) => { console.log(tokenDecoded)
+passport.use(new Strategy(passportConfigs, (tokenDecoded, done) => {
     findUserById(tokenDecoded.id)
         .then(data => {
             if (data)

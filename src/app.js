@@ -3,11 +3,14 @@ const express = require('express')
 
 //? File imports
 const config = require('../config')
-const { error, success } =require('./utils/responses.handler')
+const { error, success } =require('./utils/handleResponses')
 const db = require('./utils/database')
 //? Router Imports
 const userRouter = require('./users/users.router')
 const authRouter = require('./auth/auth.router')
+const messageRouter = require('./messages/messages.router')
+const conversationsRouter = require('./conversations/conversation.router')
+const initModels = require('./models/initModels')
 
 //? Initial Configs
 const app = express()
@@ -23,6 +26,8 @@ db.sync()
     .then(() => console.log('Database Synced'))
     .catch(err => console.log(err))
 
+initModels()
+
 //? Routes
 app.get('/', (req, res) => {
     success({
@@ -37,6 +42,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/', authRouter)
+app.use('/api/v1/', messageRouter)
+app.use('/api/v1/', conversationsRouter)
 
 //? 404 Error Handler
 app.use('*', (req, res) => {

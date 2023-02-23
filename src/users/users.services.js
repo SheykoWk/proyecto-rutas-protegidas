@@ -1,5 +1,5 @@
 const usersControllers = require('./users.controllers')
-const responses = require('../utils/responses.handler')
+const responses = require('../utils/handleResponses')
 
 const getAllUsers = (req, res) => {
     usersControllers.findAllUser()
