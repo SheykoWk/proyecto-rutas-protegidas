@@ -40,16 +40,20 @@ const userBases = [
 
 const createUsers = () => {
     Users.bulkCreate(userBases)
-        .then(() => console.log('User seeders executed'))
+        .then(() => {
+            console.log('User seeders executed')
+            
+        })
         .catch(console.log)
 }
 
-const deleteUsers = () => {
-    Users.destroy({where: {id: 'de69c924-03f1-4b6e-93ad-8fe17ec1121d'}})
-    Users.destroy({where: {id: '280ca98b-3c7e-4a3c-9a5a-0089aca1972f'}})
-    Users.destroy({where: {id: '55d7935f-3bb3-4133-be34-de05a22fdd47'}})
-    Users.destroy({where: {id: '685603b5-9ba8-4062-8ade-893ee77934e9'}})
-    Users.destroy({where: {id: '011b74d8-5881-4e53-a38d-cecfd38d1b32'}})
+const deleteUsers = async() => {
+    await Users.findAll()
+            .then((data) => {
+                data.map((user) => user.destroy({where:{id:user.id}}))
+            })
+            .catch(console.log)
+
 }
 
 module.exports = {

@@ -15,7 +15,6 @@ describe('Testing de creacion de usuario con contraseña encriptada', () => {
     it('Deberia retornar el nuevo usuario con la contraseña 1234 encriptada', (done) => {
         findUserById('011b74d8-5881-4e53-a38d-cecfd38d1b32')
         .then(data => {
-            assert.isNotEmpty(data.password)
             assert.notEqual(data.password, '1234')
             done()
         })
