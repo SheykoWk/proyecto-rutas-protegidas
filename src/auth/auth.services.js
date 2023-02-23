@@ -1,43 +1,49 @@
-const checkUsers=require('./auth.controllers')
-const response= require('../utils/responses.handler')
-const jwt=require('jsonwebtoken')
-const config=require('../../config')
+const checkUserCredentials = require("./auth.controllers")
+const response = require("../utils/responses.handler")
+const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
 
-const authentication=(req, res)=>{
-    const {email, password}=req.body
-    checkUsers(email, password)
-        .then(data=> {
-            if(data){
-                const token=jwt.sign({
-                    id:data.id,
-                    email:data.email,
-                    firstName:data.firstName,
-                }, config.api.jwtSecret,{
-                expiresIn:'2d'
-                } )
-                response.success({
-                    res,
-                    status:200,
-                    message:'user is OK',
-                    data: token
-                })
-            }else{
-                response.error({
-                    res,
-                    status:401,
-                    message:'Invalid User'
-                })
-            }
+dotenv.config()
 
+const postLogin = (req, res) => {
+  const { email, password } = req.body
+  checkUserCredentials(email, password)
+    .then((data) => {
+      if (data) {
+        const token = jwt.sign(
+          {
+            id: data.id,
+            email: data.email,
+            firstName: data.firstName
+          },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "1d"
+          }
+        )
+
+        response.success({
+          res,
+          status: 200,
+          message: "Correct Credentials!",
+          data: token
         })
-        .catch(err=>{
-            response.error({
-                res,
-                status:400,
-                data:err.message
-            })
+      } else {
+        response.error({
+          res,
+          status: 401,
+          message: "Invalid Credentials"
         })
-
+      }
+    })
+    .catch((err) => {
+      response.error({
+        res,
+        status: 401,
+        data: err,
+        message: "Something Bad"
+      })
+    })
 }
 
-module.exports = authentication
+module.exports = postLogin
