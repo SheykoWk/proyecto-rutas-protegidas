@@ -2,11 +2,12 @@
 const express = require('express')
 
 //? File imports
-const config = require('../config')
-const { error, success } =require('./utils/responses.handler')
-const db = require('./utils/database')
+const config = require('../../config')
+const { error, success } =require('../proyecto-rutas-protegidas/src/src/utils/responses.handler')
+const db = require('../proyecto-rutas-protegidas/src/src/utils/database')
 //? Router Imports
 const userRouter = require('./users/users.router')
+const authRouter = require('./auth/auth.router')
 
 //? Initial Configs
 const app = express()
@@ -29,12 +30,14 @@ app.get('/', (req, res) => {
         status: 200,
         data: {
             users: `${config.api.host}/api/v1/users`,
-            auth: `${config.api.host}/api/v1/auth`
+            auth: `${config.api.host}/api/v1/auth`,
+            login: `${config.api.host}/api/v1/auth/login`
         }
     })
 })
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/auth', authRouter)
 
 //? 404 Error Handler
 app.use('*', (req, res) => {
