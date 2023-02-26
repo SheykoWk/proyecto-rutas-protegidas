@@ -111,7 +111,7 @@ const patchUser = (req, res) => {
         .catch(err => {
             responses.error({
                 status: 400,
-                data: err,
+                data: err.message,
                 message: `Error ocurred trying to update user with id ${id}`,
                 res,
                 fields: {
@@ -150,7 +150,7 @@ const deleteUser = (req, res) => {
         .catch(err => {
             responses.error({
                 status: 400,
-                data: err,
+                data: err.message,
                 message: `Error ocurred trying to delete user with id ${id}`,
                 res
             })
@@ -162,5 +162,5 @@ module.exports = {
     getUserById,
     postNewUser,
     patchUser,
-    deleteUser
+    deleteUser,
 }
