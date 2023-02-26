@@ -157,10 +157,41 @@ const deleteUser = (req, res) => {
         })
 }
 
+const getUserByEmail = (req, res) => {
+
+    const email = req.user.email
+    usersControllers.findUserByEmail(email)
+        .then(data => {
+            responses.success({
+                status: 201,
+                data,
+                message: `User found by email with id: ${data.id}`,
+                res
+            })
+        })
+        .catch(err => {
+            responses.error({
+                status: 400,
+                data: err,
+                message: 'Error ocurred trying to get user by email a new user',
+                res,
+                fields: {
+                    firstName : 'String',
+                    lastName : 'String',
+                    email: 'example@example.com',
+                    password: 'String',
+                    profileImage: 'example.com/image.png',
+                    phone : '+52 1234 123 123'
+                }
+            })
+        })
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     postNewUser,
     patchUser,
-    deleteUser
+    deleteUser,
+    getUserByEmail
 }
