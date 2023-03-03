@@ -6,6 +6,7 @@ const config = require('../config')
 const { error, success } =require('./utils/responses.handler')
 const db = require('./utils/database')
 //? Router Imports
+const authRouter = require('./auth/auth.router')
 const userRouter = require('./users/users.router')
 
 //? Initial Configs
@@ -33,6 +34,8 @@ app.get('/', (req, res) => {
         }
     })
 })
+
+app.use('/api/v1/auth', authRouter)
 
 app.use('/api/v1/users', userRouter)
 
